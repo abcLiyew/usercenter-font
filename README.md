@@ -26,7 +26,7 @@
 > node 版本高于 16.14.0
 1. 克隆项目到本地：
 ```bash
-1. git clone https://github.com/your-username/usercenter-font.git
+1. git clone https://github.com/abcLiyew/usercenter-font.git
 ```
 2. 进入项目目录：
 ```bash
