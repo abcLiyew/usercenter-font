@@ -20,7 +20,11 @@
           <div v-if="loginUserStore.loginUser.id">
             <a-dropdown>
               <a class="ant-dropdown-link" style="color: black" @click.prevent>
-                {{ loginUserStore.loginUser.username==null?"用户名未设置":loginUserStore.loginUser.username }}
+                {{
+                  loginUserStore.loginUser.username == null
+                    ? '用户名未设置'
+                    : loginUserStore.loginUser.username
+                }}
               </a>
               <template #overlay>
                 <a-menu>
@@ -28,7 +32,7 @@
                     <a-button type="link" @click="logout()">退出登录</a-button>
                   </a-menu-item>
                   <a-menu-item>
-                    <a-button type="link" @click="mySpace();">个人空间</a-button>>
+                    <a-button type="link" @click="mySpace()">个人空间</a-button>>
                   </a-menu-item>
                 </a-menu>
               </template>
@@ -49,7 +53,8 @@ import {
   CrownOutlined,
   UserOutlined,
   UserAddOutlined,
-  GithubOutlined} from '@ant-design/icons-vue'
+  GithubOutlined,
+} from '@ant-design/icons-vue'
 import { type MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useLoginUserStore } from '@/store/useLoginUserStore'
@@ -62,7 +67,7 @@ const doMenuClick = ({ key }: { key: string }) => {
 }
 
 const current = ref<string[]>(['mail'])
-router.afterEach((to, from, next) => {
+router.afterEach((to) => {
   current.value = [to.path]
 })
 const items = ref<MenuProps['items']>([
@@ -93,7 +98,11 @@ const items = ref<MenuProps['items']>([
   {
     key: 'other',
     icon: () => h(GithubOutlined),
-    label: h('a', { href: 'https://github.com/abcLiyew/usercenter-font', target: '_blank' }, 'Github'),
+    label: h(
+      'a',
+      { href: 'https://github.com/abcLiyew/usercenter-font', target: '_blank' },
+      'Github',
+    ),
   },
 ])
 const logout = async () => {
@@ -101,20 +110,20 @@ const logout = async () => {
   //退出登录后记录登录信息
   if (res.data.code === 0) {
     loginUserStore.setLoginUser({})
-    message.success("退出登录成功！")
+    message.success('退出登录成功！')
     await router.push({
-      path: "/",
+      path: '/',
       replace: true,
     })
-  }else {
-    message.error("退出登录失败！")
+  } else {
+    message.error('退出登录失败！')
   }
 }
 const mySpace = () => {
-   router.push({
-      path: "/user/mySpace",
-      replace: false,
-    })
+  router.push({
+    path: '/user/mySpace',
+    replace: false,
+  })
 }
 </script>
 <style scoped>
