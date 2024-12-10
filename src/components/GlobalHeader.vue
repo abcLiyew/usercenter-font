@@ -93,7 +93,7 @@ const items = ref<MenuProps['items']>([
   {
     key: 'other',
     icon: () => h(GithubOutlined),
-    label: h('a', { href: 'https://github.com/abcLiyew', target: '_blank' }, 'Github主页'),
+    label: h('a', { href: 'https://github.com/abcLiyew/usercenter-font', target: '_blank' }, 'Github'),
   },
 ])
 const logout = async () => {
