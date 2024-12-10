@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import { getCurrentUser } from '@/api/user'
+import { useLoginUserStore } from '@/store/useLoginUserStore'
+import {GithubOutlined} from '@ant-design/icons-vue'
 
 getCurrentUser().then((res) => {
-  console.log(res)
+  if(res.data.data){
+    useLoginUserStore().setLoginUser(res.data.data)
+  }
+
 })
 </script>
 
@@ -18,7 +23,8 @@ getCurrentUser().then((res) => {
           <router-view />
         </a-layout-content>
         <a-layout-footer class="footer">
-          <a href="https://github.com/abcLiyew" target="_blank"> 饿死的流浪猫github主页 </a>
+          <GithubOutlined />
+          <a href="https://github.com/abcLiyew" target="_blank"> 作者的github主页 </a>
         </a-layout-footer>
       </a-layout>
     </a-space>

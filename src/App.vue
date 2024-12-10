@@ -2,6 +2,7 @@
 import BasicLayout from '@/layouts/basicLayout.vue'
 
 
+
 </script>
 
 <template>

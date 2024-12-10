@@ -68,7 +68,6 @@ const formState = reactive<FormState>({
  */
 const handleSubmit = async (values: any) => {
   const res = await  userLogin(values)
-  console.log(res)
   //登录成功后记录登录信息
   if (res.data.code === 0&&res.data.data) {
     await loginUserStore.fetchLoginUser();

@@ -101,7 +101,6 @@ const handleSubmit = async (values: any) => {
     return
   }
   const res = await  userRegister(values)
-  console.log(res)
   //注册成功后跳转到登录页面
   if (res.data.code === 0&&res.data.data) {
     message.success("注册成功！")

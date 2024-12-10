@@ -4,7 +4,7 @@
       <a-col flex="300px">
         <div class="title-bar">
           <img src="../assets/logo.png" alt="logo" class="logo" />
-          <div class="title">饿死的流浪猫的用户中心</div>
+          <div class="title">黎业河的用户中心</div>
         </div>
       </a-col>
       <a-col flex="auto">
@@ -15,10 +15,24 @@
           @click="doMenuClick"
         />
       </a-col>
-      <a-col flex="80px">
+      <a-col flex="100px">
         <div class="user-login-status">
           <div v-if="loginUserStore.loginUser.id">
-            {{ JSON.stringify(loginUserStore.loginUser.username) }}
+            <a-dropdown>
+              <a class="ant-dropdown-link" style="color: black" @click.prevent>
+                {{ loginUserStore.loginUser.username==null?"用户名未设置":loginUserStore.loginUser.username }}
+              </a>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item>
+                    <a-button type="link" @click="logout()">退出登录</a-button>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <a-button type="link" @click="mySpace();">个人空间</a-button>>
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
           </div>
           <div v-else>
             <a-button type="primary" href="/user/login">登录</a-button>
@@ -30,10 +44,16 @@
 </template>
 <script lang="ts" setup>
 import { h, ref } from 'vue'
-import { HomeOutlined, CrownOutlined } from '@ant-design/icons-vue'
-import type { MenuProps } from 'ant-design-vue'
+import {
+  HomeOutlined,
+  CrownOutlined,
+  UserOutlined,
+  UserAddOutlined,
+  GithubOutlined} from '@ant-design/icons-vue'
+import { type MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useLoginUserStore } from '@/store/useLoginUserStore'
+import { userLogout } from '@/api/user'
 const loginUserStore = useLoginUserStore()
 const router = useRouter()
 
@@ -54,11 +74,13 @@ const items = ref<MenuProps['items']>([
   },
   {
     key: '/user/login',
+    icon: () => h(UserOutlined),
     label: '用户登录',
     title: '用户登录',
   },
   {
     key: '/user/register',
+    icon: () => h(UserAddOutlined),
     label: '用户注册',
     title: '用户注册',
   },
@@ -70,9 +92,30 @@ const items = ref<MenuProps['items']>([
   },
   {
     key: 'other',
+    icon: () => h(GithubOutlined),
     label: h('a', { href: 'https://github.com/abcLiyew', target: '_blank' }, 'Github主页'),
-  }
+  },
 ])
+const logout = async () => {
+  const res = await userLogout(loginUserStore.loginUser)
+  //退出登录后记录登录信息
+  if (res.data.code === 0) {
+    loginUserStore.setLoginUser({})
+    message.success("退出登录成功！")
+    await router.push({
+      path: "/",
+      replace: true,
+    })
+  }else {
+    message.error("退出登录失败！")
+  }
+}
+const mySpace = () => {
+   router.push({
+      path: "/user/mySpace",
+      replace: false,
+    })
+}
 </script>
 <style scoped>
 .title-bar {

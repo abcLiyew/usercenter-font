@@ -23,10 +23,8 @@ myAxios.interceptors.response.use(
   function (response) {
     // 任何在 2xx 范围内的状态代码都会导致触发此函数
     // 对响应数据执行某些操作
-    console.log(response);
 
     const { data } = response;
-    console.log(data);
     // 未登录
     if (data.code === 40100) {
       // 不是获取用户信息接口，或者不是登录页面，则跳转到登录页面

@@ -1,9 +1,9 @@
 <template>
   <div id="user-manage">
     <a-input-search
-      style="max-width: 320px;margin-bottom: 20px"
+      style="max-width: 320px; margin-bottom: 20px"
       v-model:value="searchValue"
-      placeholder="输入用户你搜索"
+      placeholder="输入用户名以搜索"
       enter-button="搜索"
       size="large"
       @search="onSearch"
@@ -11,7 +11,7 @@
     <a-table :columns="columns" :data-source="data">
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'avatarUrl'">
-          <a-image :src="record.avatarUrl" :width="120" />
+          <a-image :src="record.avatarUrl" :width="100" />
         </template>
         <template v-if="column.dataIndex === 'userRole'">
           <div v-if="record.userRole === 1">
@@ -22,7 +22,7 @@
           </div>
         </template>
         <template v-if="column.dataIndex === 'createTime'">
-          {{ dayjs(record.createTheme).format("YYYY-MM-DD HH:mm:ss") }}
+          {{ dayjs(record.createTheme).format('YYYY-MM-DD HH:mm:ss') }}
         </template>
         <template v-else-if="column.key === 'tags'">
           <span>
@@ -36,7 +36,18 @@
           </span>
         </template>
         <template v-else-if="column.dataIndex === 'action'">
-          <a-button danger @click="doDelete">删除</a-button>
+          <a-button danger @click="doDelete(record.id)">删除</a-button>
+        </template>
+        <template v-if="column.dataIndex === 'gender'">
+          <div v-if="record.gender === 1">
+            男
+          </div>
+          <div v-else-if="record.gender === 0">
+            女
+          </div>
+          <div v-else>
+            未知
+          </div>
         </template>
       </template>
     </a-table>
@@ -51,7 +62,7 @@ import dayjs from 'dayjs'
 const searchValue = ref('')
 
 const onSearch = () => {
-//执行搜索获取数据
+  //执行搜索获取数据
   fetchData(searchValue.value)
 }
 
@@ -90,48 +101,29 @@ const columns = [
   },
 ]
 
-let data = ref([
-  //先写一些假数据
-  {
-    id: 1,
-    username: 'John Brown',
-    userAccount: 'newyork_lin',
-    avatarUrl: '123456',
-    createTime: Date.now(),
-    userRole: 1,
-  },
-  {
-    id: 2,
-    username: 'John Brown',
-    userAccount: 'newyork_lin',
-    avatarUrl: '123456',
-    createTime: Date.now(),
-    userRole: 0,
-  },
-])
+const data = ref([])
 //获取数据
-const fetchData = async (username="") => {
+const fetchData = async (username = '') => {
   const res = await searchUsers(username)
+  console.log(res)
   if (res.data.data) {
     data.value = res.data.data
   } else {
+    message.error('获取用户列表失败！')
   }
-  message.error('获取用户列表失败！')
-  console.log(res)
 }
 fetchData()
 
-const doDelete = async (id:string) => {
-  if(!id){
+const doDelete = async (id: string) => {
+  if (!id) {
     return
   }
-  const res = await deleteUser(id);
-  if(res.data.code === 0){
+  const res = await deleteUser(id)
+  if (res.data.code === 0) {
     message.success('删除成功！')
     await fetchData()
-  }else{
+  } else {
     message.error('删除失败！')
   }
-
 }
 </script>
