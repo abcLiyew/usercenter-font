@@ -24,6 +24,9 @@
 ## 安装
 > 前提条件：已安装 Node.js 和 npm以及git 环境，
 > 并且后端服务已启动，参考
+>
+> [此处]:  "https://github.com/abcLiyew/usercenter"	"用户中心"
+>
 > node 版本高于 16.14.0
 1. 克隆项目到本地：
 ```bash
