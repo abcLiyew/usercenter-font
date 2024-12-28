@@ -4,7 +4,7 @@
       <a-col flex="300px">
         <div class="title-bar">
           <img src="../assets/logo.png" alt="logo" class="logo" />
-          <div class="title">黎业河的用户中心</div>
+          <div class="title">饿死的流浪猫的用户中心</div>
         </div>
       </a-col>
       <a-col flex="auto">
@@ -39,7 +39,7 @@
             </a-dropdown>
           </div>
           <div v-else>
-            <a-button type="primary" href="/user/login">登录</a-button>
+            <a-button type="primary" @click="router.push('/user/login')">登录</a-button>
           </div>
         </div>
       </a-col>
@@ -108,7 +108,7 @@ const items = ref<MenuProps['items']>([
 const logout = async () => {
   const res = await userLogout(loginUserStore.loginUser)
   //退出登录后记录登录信息
-  if (res.data.code === 0) {
+  if (res.data.code === '0') {
     loginUserStore.setLoginUser({})
     message.success('退出登录成功！')
     await router.push({

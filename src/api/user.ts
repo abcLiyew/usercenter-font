@@ -50,7 +50,7 @@ export const getCurrentUser = async () => {
  * 获取用户列表
  * @param username
  */
-export const searchUsers = async (username: any) => {
+export const searchUsers = async (username: string) => {
   return myAxios.request({
     url: "/api/user/search",
     method: "GET",

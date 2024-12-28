@@ -1,11 +1,10 @@
 import axios from "axios";
 
 const myAxios = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 10000,
   withCredentials: true,
 });
-
 // 添加一个请求拦截器
 myAxios.interceptors.request.use(
   function (config) {
@@ -26,7 +25,7 @@ myAxios.interceptors.response.use(
 
     const { data } = response;
     // 未登录
-    if (data.code === 40100) {
+    if (data.code === '40100') {
       // 不是获取用户信息接口，或者不是登录页面，则跳转到登录页面
       if (
         !response.request.responseURL.includes("user/current") &&

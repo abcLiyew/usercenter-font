@@ -3,7 +3,7 @@ import { UserOutlined, UserAddOutlined, IdcardOutlined, CrownOutlined } from '@a
 import type { MenuTheme } from 'ant-design-vue'
 import { h, ref } from 'vue'
 
-const msg = ref('欢迎来到黎业河的用户中心，你将在黎业河的用户中心看到更多的功能哦！\n')
+const msg = ref('欢迎来到饿死的流浪猫的用户中心，你将在饿死的流浪猫的用户中心看到更多的功能哦！\n')
 
 const theme = ref<MenuTheme>('light')
 const selectedKeys = ref(['1'])
@@ -81,7 +81,7 @@ const items = ref([
 3          "message": "ok",
 4          "data": {
 5              "id": 1861395776687697928,
-6              "username": "黎业河",
+6              "username": "饿死的流浪猫",
 7              "userAccount": "esdllm",
 8              "avatarUrl": null,
 9              "gender": 1,

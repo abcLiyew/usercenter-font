@@ -102,7 +102,7 @@ const handleSubmit = async (values: any) => {
   }
   const res = await  userRegister(values)
   //注册成功后跳转到登录页面
-  if (res.data.code === 0&&res.data.data) {
+  if (res.data.code === '0' && res.data.data) {
     message.success("注册成功！")
     await router.push({
       path: "/user/login",

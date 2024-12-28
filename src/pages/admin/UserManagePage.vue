@@ -14,7 +14,7 @@
           <a-image :src="record.avatarUrl" :width="100" />
         </template>
         <template v-if="column.dataIndex === 'userRole'">
-          <div v-if="record.userRole === 1">
+          <div v-if="record.userRole === '1'">
             <a-tag color="green">管理员</a-tag>
           </div>
           <div v-else>
@@ -119,11 +119,11 @@ const doDelete = async (id: string) => {
     return
   }
   const res = await deleteUser(id)
-  if (res.data.code === 0) {
+  if (res.data.code === '0') {
     message.success('删除成功！')
     await fetchData()
   } else {
-    message.error('删除失败！')
+    message.error(res.data.description)
   }
 }
 </script>
